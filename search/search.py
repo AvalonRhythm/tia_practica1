@@ -122,8 +122,8 @@ def breadthFirstSearch(problem):
                 return actual[1]
 
             for sig in problem.getSuccessors(actual[0]):
-                    camino = actual[1] + [sig[1]]
-                    estados_direcciones.push((sig[0], camino))
+                camino = actual[1] + [sig[1]]
+                estados_direcciones.push((sig[0], camino))
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
