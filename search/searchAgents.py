@@ -392,17 +392,15 @@ def cornersHeuristic(state, problem):
         if esquina not in esquinas:
             esquinasObjetivo.append(esquina)
 
-    actual = estado
-
     while len(esquinasObjetivo) > 0:
         esquinasDistancia = []
         for corner in esquinasObjetivo:
-            esquinasDistancia.append((util.manhattanDistance(actual, corner), corner))
+            esquinasDistancia.append((util.manhattanDistance(estado, corner), corner))
 
         proxima = min(esquinasDistancia)
         sum += proxima[0]
-        actual = proxima[1]
-        esquinasObjetivo.remove(actual)
+        estado = proxima[1]
+        esquinasObjetivo.remove(estado)
 
     return sum
 
