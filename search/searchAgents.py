@@ -392,15 +392,16 @@ def cornersHeuristic(state, problem):
         if esquina not in esquinas:
             esquinasObjetivo.append(esquina)
 
-    while len(esquinasObjetivo) > 0:
+    while len(esquinasObjetivo) > 0: ##recorrer todas las esquinas por explorar
         esquinasDistancia = []
-        for corner in esquinasObjetivo:
+        for corner in esquinasObjetivo: #recorrer todas las esquinas que quedan
+            # obtener todas las distancias desde la casilla actual hasta la esquina
             esquinasDistancia.append((util.manhattanDistance(estado, corner), corner))
-
+        #moverte a la casilla mas cercama
         proxima = min(esquinasDistancia)
-        sum += proxima[0]
-        estado = proxima[1]
-        esquinasObjetivo.remove(estado)
+        sum += proxima[0] #actualizar la distancia hasta para llegar a la esquina esquina
+        estado = proxima[1] #moverse a la siguiente esquina
+        esquinasObjetivo.remove(estado) #borrar la esquina visitada
 
     return sum
 

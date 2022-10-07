@@ -135,6 +135,7 @@ def uniformCostSearch(problem):
 
     while not estados_direcciones.isEmpty():
         actual = estados_direcciones.pop()
+
         if actual[0] not in visitados:
             visitados.append(actual[0])
 
