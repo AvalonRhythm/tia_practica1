@@ -398,6 +398,7 @@ def cornersHeuristic(state, problem):
         esquinasDistancia = []
         for corner in esquinasObjetivo:
             esquinasDistancia.append((util.manhattanDistance(actual, corner), corner))
+
         proxima = min(esquinasDistancia)
         sum += proxima[0]
         actual = proxima[1]
@@ -501,7 +502,7 @@ def foodHeuristic(state, problem):
     "*** YOUR CODE HERE ***"
 
     if foodList:
-        distanciaMin = 99999
+        masCercano = 99999
         for food in foodList:
             estado = (position + food)
             if estado not in problem.heuristicInfo:
@@ -510,11 +511,11 @@ def foodHeuristic(state, problem):
             else:
                 dif = problem.heuristicInfo[estado]
 
-            if dif < distanciaMin:
-                distanciaMin = dif
+            if dif < masCercano:
+                masCercano = dif
     else:
         return 0
-    return distanciaMin
+    return masCercano
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
