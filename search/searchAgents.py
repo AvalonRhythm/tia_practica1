@@ -501,7 +501,7 @@ def foodHeuristic(state, problem):
     "*** YOUR CODE HERE ***"
 
     if foodList:
-        masCercano = 99999
+        masLejano = 0
         for food in foodList:
             estado = (position + food)
             if estado not in problem.heuristicInfo:
@@ -510,11 +510,11 @@ def foodHeuristic(state, problem):
             else:
                 dif = problem.heuristicInfo[estado]
 
-            if dif < masCercano:
-                masCercano = dif
+            if dif > masLejano:
+                masLejano = dif
     else:
         return 0
-    return masCercano
+    return masLejano
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
