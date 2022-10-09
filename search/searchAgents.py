@@ -555,6 +555,27 @@ class ClosestDotSearchAgent(SearchAgent):
                 distMin = dist
                 objetivo = food
 
+        #ahora hay que construir el camino voraz hasta objetivo.
+        #hay que ir a saco a saco con el nodo mas cercano hatsa objetivo en cada iteracion
+
+        fringe = util.PriorityQueue()
+        fringe.push((startPosition, [], 0), 0)
+        visitados = []
+
+        while not fringe.isEmpty():
+            actual = fringe.pop()
+
+            if actual[0] not in visitados:
+                visitados.append(actual[0])
+
+                if problem.isGoalState(actual[0]):
+                    return actual[1]
+
+                for sig in problem.getSuccessors(actual[0]): #(coord,camino,prioridad)
+                    camino = actual[1] + [sig[1]]
+                    prioridad = util.manhattanDistance(actual[0], sig[0])
+                    fringe.update((sig[0], camino, prioridad), prioridad)
+
         util.raiseNotDefined()
 
 class AnyFoodSearchProblem(PositionSearchProblem):
