@@ -536,14 +536,13 @@ class ClosestDotSearchAgent(SearchAgent):
 
     def findPathToClosestDot(self, gameState):
         """
-        Returns a path (a list of actions) to the closest dot, starting from
-        gameState.
-        """
+         Returns a path (a list of actions) to the closest dot, starting from
+         gameState.
+         """
         # Here are some useful elements of the startState
         startPosition = gameState.getPacmanPosition()
         food = gameState.getFood()
         foodList = food.asList()
-        print(foodList)
         walls = gameState.getWalls()
         problem = AnyFoodSearchProblem(gameState)
 
@@ -555,8 +554,8 @@ class ClosestDotSearchAgent(SearchAgent):
                 distMin = dist
                 objetivo = food
 
-        #ahora hay que construir el camino voraz hasta objetivo.
-        #hay que ir a saco a saco con el nodo mas cercano hatsa objetivo en cada iteracion
+        # ahora hay que construir el camino voraz hasta objetivo.
+        # hay que ir a saco a saco con el nodo mas cercano hatsa objetivo en cada iteracion
 
         fringe = util.PriorityQueue()
         fringe.push((startPosition, [], 0), 0)
@@ -568,13 +567,19 @@ class ClosestDotSearchAgent(SearchAgent):
             if actual[0] not in visitados:
                 visitados.append(actual[0])
 
-                if problem.isGoalState(actual[0]):
+                if AnyFoodSearchProblem.isGoalState(actual[0]):  # hay q implementarlo
                     return actual[1]
 
-                for sig in problem.getSuccessors(actual[0]): #(coord,camino,prioridad)
-                    camino = actual[1] + [sig[1]]
-                    prioridad = util.manhattanDistance(actual[0], sig[0])
-                    fringe.update((sig[0], camino, prioridad), prioridad)
+                coordAct = actual[0]
+                x = coordAct[0]
+                y = coordAct[1]
+                sucesores = [[(x, y + 1), "n"][x, y - 1, "s"][x + 1, y, "e"][x - 1, y, "w"]]
+
+                for sucesor in sucesores:
+                    if sucesor not in walls:  # si el sucesor no es una pared
+                        camino = actual[1] + [sucesor[1]]
+                        prioridad = util.manhattanDistance(actual[0], sucesor[0])
+                        fringe.update((sucesor[0], camino, prioridad), prioridad)
 
         util.raiseNotDefined()
 
