@@ -519,6 +519,8 @@ def foodHeuristic(state, problem):
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
+    global objetivo
+
     def registerInitialState(self, state):
         self.actions = []
         currentState = state
@@ -567,19 +569,13 @@ class ClosestDotSearchAgent(SearchAgent):
             if actual[0] not in visitados:
                 visitados.append(actual[0])
 
-                if AnyFoodSearchProblem.isGoalState(actual[0]):  # hay q implementarlo
+                if problem.isGoalState(actual[0]):
                     return actual[1]
 
-                coordAct = actual[0]
-                x = coordAct[0]
-                y = coordAct[1]
-                sucesores = [[(x, y + 1), "n"][x, y - 1, "s"][x + 1, y, "e"][x - 1, y, "w"]]
-
-                for sucesor in sucesores:
-                    if sucesor not in walls:  # si el sucesor no es una pared
-                        camino = actual[1] + [sucesor[1]]
-                        prioridad = util.manhattanDistance(actual[0], sucesor[0])
-                        fringe.update((sucesor[0], camino, prioridad), prioridad)
+                for sig in problem.getSuccessors(actual[0]):
+                    camino = actual[1] + [sig[1]]
+                    dist = util.manhattanDistance(sig[0], objetivo)
+                    fringe.update((sig[0], camino, dist), dist)
 
         util.raiseNotDefined()
 
@@ -614,7 +610,10 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         The state is Pacman's position. Fill this in with a goal test that will
         complete the problem definition.
         """
-        x,y = state
+        x, y = state
+        xo, yo = objetivo
+
+        return x == xo and y == yo
         "*** YOUR CODE HERE ***"
         util.raiseNotDefined()
 
