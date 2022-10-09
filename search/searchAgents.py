@@ -33,6 +33,7 @@ description for details.
 
 Good luck and happy searching!
 """
+import sys
 
 from game import Directions
 from game import Agent
@@ -541,10 +542,19 @@ class ClosestDotSearchAgent(SearchAgent):
         # Here are some useful elements of the startState
         startPosition = gameState.getPacmanPosition()
         food = gameState.getFood()
+        foodList = food.asList()
+        print(foodList)
         walls = gameState.getWalls()
         problem = AnyFoodSearchProblem(gameState)
 
-        "*** YOUR CODE HERE ***"
+        distMin = sys.maxsize
+
+        for food in foodList:
+            dist = util.manhattanDistance(startPosition, food)
+            if dist < distMin:
+                distMin = dist
+                objetivo = food
+
         util.raiseNotDefined()
 
 class AnyFoodSearchProblem(PositionSearchProblem):
