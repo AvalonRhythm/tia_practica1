@@ -557,7 +557,7 @@ class ClosestDotSearchAgent(SearchAgent):
                 objetivo = food
 
         # ahora hay que construir el camino voraz hasta objetivo.
-        # hay que ir a saco a saco con el nodo mas cercano hatsa objetivo en cada iteracion
+        # hay que ir a saco a saco con el nodo más cercano hatsa objetivo en cada iteracion
 
         fringe = util.PriorityQueue()
         fringe.push((startPosition, [], 0), 0)
