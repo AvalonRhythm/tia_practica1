@@ -548,36 +548,7 @@ class ClosestDotSearchAgent(SearchAgent):
         walls = gameState.getWalls()
         problem = AnyFoodSearchProblem(gameState)
 
-        distMin = sys.maxsize
-
-        for food in foodList:
-            dist = util.manhattanDistance(startPosition, food)
-            if dist < distMin:
-                distMin = dist
-                objetivo = food
-
-        # ahora hay que construir el camino voraz hasta objetivo.
-        # hay que ir a saco a saco con el nodo más cercano hatsa objetivo en cada iteracion
-
-        fringe = util.PriorityQueue()
-        fringe.push((startPosition, [], 0), 0)
-        visitados = []
-
-        while not fringe.isEmpty():
-            actual = fringe.pop()
-
-            if actual[0] not in visitados:
-                visitados.append(actual[0])
-
-                if problem.isGoalState(actual[0]):
-                    return actual[1]
-
-                for sig in problem.getSuccessors(actual[0]):
-                    camino = actual[1] + [sig[1]]
-                    dist = util.manhattanDistance(sig[0], objetivo)
-                    fringe.update((sig[0], camino, dist), dist)
-
-        util.raiseNotDefined()
+        return search.bfs(problem)
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
@@ -611,11 +582,14 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         complete the problem definition.
         """
         x, y = state
-        xo, yo = objetivo
+        print(self.food)
+        print("······························")
+        #foodList = self.food.asList()
+        #return state in foodList
 
-        return x == xo and y == yo
+        #return x == xo and y == yo
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.food[x][y]
 
 def mazeDistance(point1, point2, gameState):
     """
