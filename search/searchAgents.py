@@ -579,6 +579,7 @@ class ClosestDotSearchAgent(SearchAgent):
                     fringe.update((sig[0], camino, dist), dist)
 
         util.raiseNotDefined()
+        #aaaaaa
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
