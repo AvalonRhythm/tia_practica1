@@ -570,7 +570,7 @@ class ClosestDotSearchAgent(SearchAgent):
             if actual[0] not in visitados:
                 visitados.append(actual[0])
 
-                if problem.isGoalState(actual[0]):
+                if problem.isGoalState(actual[0],objetivo):
                     return actual[1]
 
                 for sig in problem.getSuccessors(actual[0]):
@@ -579,7 +579,7 @@ class ClosestDotSearchAgent(SearchAgent):
                     fringe.update((sig[0], camino, dist), dist)
 
         util.raiseNotDefined()
-        #aaaaaa
+
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
@@ -607,15 +607,14 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         self.costFn = lambda x: 1
         self._visited, self._visitedlist, self._expanded = {}, [], 0 # DO NOT CHANGE
 
-    def isGoalState(self, state):
+    def isGoalState(self, state, objetivo):
         """
         The state is Pacman's position. Fill this in with a goal test that will
         complete the problem definition.
         """
         x, y = state
-
-        "*** YOUR CODE HERE ***"
-        return self.food[x][y]
+        xo, yo = objetivo
+        return x==xo and y==yo
 
 def mazeDistance(point1, point2, gameState):
     """
