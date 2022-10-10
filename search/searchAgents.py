@@ -506,7 +506,10 @@ def foodHeuristic(state, problem):
         for food in foodList:
             estado = (position + food)
             if estado not in problem.heuristicInfo:
-                dif = util.manhattanDistance(position, food)
+                # Si usas mazeDistante da 8/7
+                dif = mazeDistance(position, food, problem.startingGameState)
+                # Si usas manhattan da 6/7
+                #dif = util.manhattanDistance(position, food)
                 problem.heuristicInfo[estado] = dif
             else:
                 dif = problem.heuristicInfo[estado]
@@ -580,7 +583,6 @@ class ClosestDotSearchAgent(SearchAgent):
 
         util.raiseNotDefined()
 
-
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
     A search problem for finding a path to any food.
@@ -614,7 +616,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         """
         x, y = state
         xo, yo = objetivo
-        return x==xo and y==yo
+        return x == xo and y == yo
 
 def mazeDistance(point1, point2, gameState):
     """
